@@ -1,4 +1,4 @@
-package newfeatures.ivakhnenko.com.java8mvpbindingproject.views;
+package newfeatures.ivakhnenko.com.javamvp.views;
 
 /**
  * Created by Ruslan Ivakhnenko on 22.09.16.

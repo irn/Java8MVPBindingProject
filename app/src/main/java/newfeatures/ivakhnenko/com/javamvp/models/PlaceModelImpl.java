@@ -1,4 +1,4 @@
-package newfeatures.ivakhnenko.com.java8mvpbindingproject.models;
+package newfeatures.ivakhnenko.com.javamvp.models;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,7 +15,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 
-import newfeatures.ivakhnenko.com.java8mvpbindingproject.interfaces.FeatureResultCallback;
+import newfeatures.ivakhnenko.com.javamvp.interfaces.FeatureResultCallback;
 
 /**
  * Created by Ruslan Ivakhnenko on 27.09.16.

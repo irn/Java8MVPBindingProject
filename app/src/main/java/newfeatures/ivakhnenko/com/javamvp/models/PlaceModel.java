@@ -1,8 +1,8 @@
-package newfeatures.ivakhnenko.com.java8mvpbindingproject.models;
+package newfeatures.ivakhnenko.com.javamvp.models;
 
 import com.google.android.gms.location.places.Place;
 
-import newfeatures.ivakhnenko.com.java8mvpbindingproject.interfaces.FeatureResultCallback;
+import newfeatures.ivakhnenko.com.javamvp.interfaces.FeatureResultCallback;
 
 /**
  * Created by Ruslan Ivakhnenko on 22.09.16.

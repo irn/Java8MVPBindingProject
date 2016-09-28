@@ -1,4 +1,4 @@
-package newfeatures.ivakhnenko.com.java8mvpbindingproject;
+package newfeatures.ivakhnenko.com.javamvp;
 
 import org.junit.Test;
 

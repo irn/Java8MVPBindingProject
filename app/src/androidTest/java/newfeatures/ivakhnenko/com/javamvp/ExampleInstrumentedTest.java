@@ -1,4 +1,4 @@
-package newfeatures.ivakhnenko.com.java8mvpbindingproject;
+package newfeatures.ivakhnenko.com.javamvp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package newfeatures.ivakhnenko.com.java8mvpbindingproject.interfaces;
+package newfeatures.ivakhnenko.com.javamvp.interfaces;
 
 import android.support.annotation.Nullable;
 
