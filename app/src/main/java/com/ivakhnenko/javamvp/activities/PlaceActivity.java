@@ -1,4 +1,4 @@
-package newfeatures.ivakhnenko.com.javamvp.activities;
+package com.ivakhnenko.javamvp.activities;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -11,14 +11,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.ivakhnenko.javamvp.interfaces.FeatureResultCallback;
+import com.ivakhnenko.javamvp.models.PlaceModel;
+import com.ivakhnenko.javamvp.models.PlaceModelImpl;
+import com.ivakhnenko.javamvp.presenters.PlacePresenter;
+import com.ivakhnenko.javamvp.presenters.PlacePresenterImpl;
 
-import newfeatures.ivakhnenko.com.javamvp.R;
-import newfeatures.ivakhnenko.com.javamvp.databinding.ActivityPlaceBinding;
-import newfeatures.ivakhnenko.com.javamvp.interfaces.FeatureResultCallback;
-import newfeatures.ivakhnenko.com.javamvp.models.PlaceModel;
-import newfeatures.ivakhnenko.com.javamvp.models.PlaceModelImpl;
-import newfeatures.ivakhnenko.com.javamvp.presenters.PlacePresenter;
-import newfeatures.ivakhnenko.com.javamvp.presenters.PlacePresenterImpl;
+import com.ivakhnenko.javamvp.R;
+import com.ivakhnenko.javamvp.databinding.ActivityPlaceBinding;
 
 public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallback {
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        <variable
+            name="place"
+            type="com.google.android.gms.location.places.Place"/>
+        <import type="java.lang.String"/>
+        <variable
+            name="string"
+            type="java.lang.String"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@{place.name}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?listPreferredItemHeightSmall"
+                android:gravity="center_vertical"
+                android:id="@+id/textView4"
+                tools:text="Place name" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{place.rating > 0 ? String.valueOf(place.rating) : `no rating`}"
+                tools:text="Rating"
+                android:id="@+id/textView5" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+</layout>

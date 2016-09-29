@@ -1,4 +1,4 @@
-package newfeatures.ivakhnenko.com.javamvp;
+package newfeatures.features.com.javamvp;
 
 import org.junit.Test;
 

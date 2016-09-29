@@ -1,4 +1,4 @@
-package newfeatures.ivakhnenko.com.javamvp.models;
+package com.ivakhnenko.javamvp.models;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,22 +12,25 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
+import com.ivakhnenko.javamvp.interfaces.FeatureResultCallback;
 
-import newfeatures.ivakhnenko.com.javamvp.interfaces.FeatureResultCallback;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ruslan Ivakhnenko on 27.09.16.
  */
 
-public class PlaceModelImpl implements PlaceModel, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class PlacesListModelImpl implements PlacesListModel, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private Activity context;
 
     private GoogleApiClient googleApiClient;
 
-    public PlaceModelImpl(Activity activity) {
+    public PlacesListModelImpl(Activity activity) {
         this.context = activity;
         googleApiClient = new GoogleApiClient.Builder(this.context)
                 .addApi(Places.GEO_DATA_API)
@@ -38,7 +41,7 @@ public class PlaceModelImpl implements PlaceModel, GoogleApiClient.ConnectionCal
     }
 
     @Override
-    public void getCurrentPlace(final FeatureResultCallback<Place> result) {
+    public void getPlaces(final FeatureResultCallback<List<Place>> places) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
@@ -54,8 +57,13 @@ public class PlaceModelImpl implements PlaceModel, GoogleApiClient.ConnectionCal
             Places.PlaceDetectionApi.getCurrentPlace(googleApiClient, null).setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
                 @Override
                 public void onResult(@NonNull PlaceLikelihoodBuffer placeLikelihoods) {
-                    if (placeLikelihoods.getStatus().isSuccess())
-                        result.onResult(placeLikelihoods.get(0).getPlace());
+                    if (placeLikelihoods.getStatus().isSuccess()) {
+                        List<Place> placeList = new ArrayList<>();
+                        for (PlaceLikelihood placeLikelihood : placeLikelihoods) {
+                            placeList.add(placeLikelihood.getPlace());
+                        }
+                        places.onResult(placeList);
+                    }
                 }
             });
 

@@ -1,4 +1,4 @@
-package newfeatures.ivakhnenko.com.javamvp;
+package newfeatures.features.com.javamvp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

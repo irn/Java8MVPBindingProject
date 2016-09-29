@@ -1,9 +1,9 @@
-package newfeatures.ivakhnenko.com.javamvp.presenters;
+package com.ivakhnenko.javamvp.presenters;
 
 import com.google.android.gms.location.places.Place;
 
-import newfeatures.ivakhnenko.com.javamvp.interfaces.FeatureResultCallback;
-import newfeatures.ivakhnenko.com.javamvp.models.PlaceModel;
+import com.ivakhnenko.javamvp.interfaces.FeatureResultCallback;
+import com.ivakhnenko.javamvp.models.PlaceModel;
 
 /**
  * Created by Ruslan Ivakhnenko on 27.09.16.

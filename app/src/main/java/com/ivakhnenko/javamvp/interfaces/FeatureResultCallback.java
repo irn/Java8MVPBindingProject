@@ -1,4 +1,4 @@
-package newfeatures.ivakhnenko.com.javamvp.interfaces;
+package com.ivakhnenko.javamvp.interfaces;
 
 import android.support.annotation.Nullable;
 
