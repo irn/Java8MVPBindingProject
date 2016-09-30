@@ -2,7 +2,6 @@ package com.ivakhnenko.javamvp.activities;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.location.places.Place;
@@ -11,16 +10,15 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.ivakhnenko.javamvp.interfaces.FeatureResultCallback;
+import com.ivakhnenko.javamvp.R;
+import com.ivakhnenko.javamvp.databinding.ActivityPlaceBinding;
 import com.ivakhnenko.javamvp.models.PlaceModel;
 import com.ivakhnenko.javamvp.models.PlaceModelImpl;
 import com.ivakhnenko.javamvp.presenters.PlacePresenter;
 import com.ivakhnenko.javamvp.presenters.PlacePresenterImpl;
+import com.ivakhnenko.javamvp.views.PlaceView;
 
-import com.ivakhnenko.javamvp.R;
-import com.ivakhnenko.javamvp.databinding.ActivityPlaceBinding;
-
-public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallback, PlaceView {
 
     PlaceModel placeModel;
 
@@ -35,19 +33,10 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_place);
         placeModel = new PlaceModelImpl(this);
-        presenter = new PlacePresenterImpl(placeModel);
+        presenter = new PlacePresenterImpl(placeModel, this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        presenter.getPlace(new FeatureResultCallback<Place>() {
-            @Override
-            public void onResult(@Nullable Place result) {
-                binding.setPlace(result);
-                if (mMap != null) {
-                    mMap.addMarker(new MarkerOptions().position(result.getLatLng()).title((String) result.getName()));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLng(result.getLatLng()));
-                }
-            }
-        });
+        presenter.getPlace();
     }
 
     @Override
@@ -65,5 +54,24 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+    }
+
+    @Override
+    public void setPlace(Place place) {
+        binding.setPlace(place);
+        if (mMap != null) {
+            mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title((String) place.getName()));
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
+        }
+    }
+
+    @Override
+    public void showWaitingBar() {
+
+    }
+
+    @Override
+    public void hideWaitingBar() {
+
     }
 }

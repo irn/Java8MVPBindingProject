@@ -27,6 +27,12 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceHolde
     @Override
     public PlaceHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         PlaceItemBinding placeItemBinding = PlaceItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        placeItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         PlaceHolder holder = new PlaceHolder(placeItemBinding.getRoot());
         return holder;
     }

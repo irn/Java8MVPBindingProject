@@ -31,9 +31,8 @@ public class PlacesListActivity extends AppCompatActivity {
             @Override
             public void onResult(@Nullable List<Place> result) {
                 PlacesAdapter adapter = new PlacesAdapter(result);
-//                recyclerView.setHasFixedSize(true);
-//                recyclerView.setLayoutManager(new LinearLayoutManager(PlacesListActivity.this));
                 recyclerView.setAdapter(adapter);
+
             }
         });
     }
