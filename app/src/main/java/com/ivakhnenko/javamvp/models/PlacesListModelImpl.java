@@ -16,6 +16,7 @@ import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 import com.ivakhnenko.javamvp.interfaces.FeatureResultCallback;
+import com.ivakhnenko.javamvp.utils.Const;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class PlacesListModelImpl implements PlacesListModel, GoogleApiClient.Con
     public void getPlaces(final FeatureResultCallback<List<Place>> places) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
+            ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Const.ACCESS_LOCATION_REQUEST);
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -94,4 +95,6 @@ public class PlacesListModelImpl implements PlacesListModel, GoogleApiClient.Con
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
 }

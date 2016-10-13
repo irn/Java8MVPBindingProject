@@ -1,5 +1,7 @@
 package com.ivakhnenko.javamvp.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.location.places.Place;
+import com.ivakhnenko.javamvp.activities.PlaceActivity;
 import com.ivakhnenko.javamvp.databinding.PlaceItemBinding;
 
 import java.util.List;
@@ -26,11 +29,16 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceHolde
 
     @Override
     public PlaceHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        PlaceItemBinding placeItemBinding = PlaceItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        final PlaceItemBinding placeItemBinding = PlaceItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         placeItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Context context = v.getContext();
+                Place place = placeItemBinding.getPlace();
+                String id = place.getId();
+                Intent intent = new Intent(context, PlaceActivity.class);
+                intent.putExtra("placeId", id);
+                context.startActivity(intent);
             }
         });
         PlaceHolder holder = new PlaceHolder(placeItemBinding.getRoot());

@@ -1,5 +1,7 @@
 package com.ivakhnenko.javamvp.presenters;
 
+import android.support.annotation.NonNull;
+
 import com.google.android.gms.location.places.Place;
 
 /**
@@ -10,6 +12,10 @@ public interface PlacePresenter {
 
     void getPlace();
 
-    void openPlace(Place place);
+    void getPlaceById(@NonNull String id);
+
+    void getPlacePhotos(@NonNull String placeId);
+
+    void openPlace(@NonNull Place place);
 
 }

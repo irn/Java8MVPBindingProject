@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="bitmap"
+            type="android.graphics.Bitmap"/>
+        <import type="java.lang.String"/>
+        <variable
+            name="string"
+            type="java.lang.String"/>
+    </data>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerInside"
+        bind:imageBitmap="@{bitmap}">
+
+    </ImageView>
+</layout>
