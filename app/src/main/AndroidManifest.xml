@@ -22,13 +22,14 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".activities.PlaceActivity" />
-        <activity android:name=".activities.PlacesListActivity">
+        <activity android:name=".activities.RotationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity android:name=".activities.RotationActivity"></activity>-->
     </application>
 
 </manifest>
