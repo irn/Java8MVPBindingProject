@@ -12,6 +12,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 /**
  * Created by ruslan on 02.11.16.
@@ -97,7 +98,10 @@ public class RotationModelImpl extends BaseGpsModel implements RotationModel, Lo
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-
+        float[] rotationMatrix = new float[9];
+        SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values);
+        float[] values = sensorManager.getOrientation(rotationMatrix, event.values);
+        Log.i(getClass().getSimpleName(), String.format("azimuth = %f, pitch = %f, roll = %f", values[0], values[1], values[2]));
     }
 
     @Override
