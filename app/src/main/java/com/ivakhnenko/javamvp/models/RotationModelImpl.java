@@ -3,6 +3,10 @@ package com.ivakhnenko.javamvp.models;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,18 +17,20 @@ import android.support.annotation.NonNull;
  * Created by ruslan on 02.11.16.
  */
 
-public class RotationModelImpl extends BaseGpsModel implements RotationModel, LocationListener {
+public class RotationModelImpl extends BaseGpsModel implements RotationModel, LocationListener, SensorEventListener {
 
     private Activity mActivity;
 
     LocationManager locationManager;
+
+    SensorManager sensorManager;
 
     public RotationModelImpl(Activity mActivity) {
         this.mActivity = mActivity;
 
         locationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
 
-
+        sensorManager = (SensorManager) mActivity.getSystemService(Context.SENSOR_SERVICE);
     }
 
     @Override
@@ -40,11 +46,16 @@ public class RotationModelImpl extends BaseGpsModel implements RotationModel, Lo
 //            return TODO;
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 5, this);
+        Sensor rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        if (rotationSensor != null) {
+            sensorManager.registerListener(this, rotationSensor, SensorManager.SENSOR_DELAY_UI);
+        }
     }
 
     @Override
     public void onStop() {
         locationManager.removeUpdates(this);
+        sensorManager.unregisterListener(this);
     }
 
     @Override
@@ -81,6 +92,16 @@ public class RotationModelImpl extends BaseGpsModel implements RotationModel, Lo
 
     @Override
     public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
 }
