@@ -12,7 +12,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+
+import com.ivakhnenko.javamvp.activities.BaseLocationActivity;
 
 /**
  * Created by ruslan on 02.11.16.
@@ -37,6 +40,8 @@ public class RotationModelImpl extends BaseGpsModel implements RotationModel, Lo
     @Override
     public void onStart() {
         if (checkPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, BaseLocationActivity.LOCATION_REQUEST_CODE);
+            return;
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -100,7 +105,8 @@ public class RotationModelImpl extends BaseGpsModel implements RotationModel, Lo
     public void onSensorChanged(SensorEvent event) {
         float[] rotationMatrix = new float[9];
         SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values);
-        float[] values = sensorManager.getOrientation(rotationMatrix, event.values);
+        float[] orientationResult = new float[3];
+        float[] values = sensorManager.getOrientation(rotationMatrix, orientationResult);
         Log.i(getClass().getSimpleName(), String.format("azimuth = %f, pitch = %f, roll = %f", values[0], values[1], values[2]));
     }
 

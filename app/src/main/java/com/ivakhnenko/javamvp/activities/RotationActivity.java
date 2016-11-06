@@ -1,6 +1,8 @@
 package com.ivakhnenko.javamvp.activities;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ivakhnenko.javamvp.R;
@@ -8,7 +10,7 @@ import com.ivakhnenko.javamvp.models.RotationModel;
 import com.ivakhnenko.javamvp.models.RotationModelImpl;
 import com.ivakhnenko.javamvp.presenters.RotationPresenter;
 
-public class RotationActivity extends AppCompatActivity {
+public class RotationActivity extends BaseLocationActivity {
 
     RotationModel rotationModel;
 
