@@ -1,35 +1,51 @@
 package com.ivakhnenko.javamvp.activities;
 
+import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ivakhnenko.javamvp.R;
+import com.ivakhnenko.javamvp.databinding.ActivityRotationBinding;
+import com.ivakhnenko.javamvp.models.Position;
 import com.ivakhnenko.javamvp.models.RotationModel;
 import com.ivakhnenko.javamvp.models.RotationModelImpl;
 import com.ivakhnenko.javamvp.presenters.RotationPresenter;
+import com.ivakhnenko.javamvp.presenters.RotationPresenterImpl;
+import com.ivakhnenko.javamvp.views.RotationView;
 
-public class RotationActivity extends AppCompatActivity {
+public class RotationActivity extends BaseLocationActivity implements RotationView{
 
     RotationModel rotationModel;
 
     RotationPresenter rotationPresenter;
 
+    ActivityRotationBinding rotationBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rotation);
+        rotationBinding =  DataBindingUtil.setContentView(this, R.layout.activity_rotation);
         rotationModel = new RotationModelImpl(this);
+        rotationPresenter = new RotationPresenterImpl(this, rotationModel);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        rotationModel.onStart();
+        rotationPresenter.onStart();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        rotationModel.onStop();
+        rotationPresenter.onStop();
+    }
+
+    @Override
+    public void updatePosition(Position position) {
+        rotationBinding.setPosition(position);
     }
 }
