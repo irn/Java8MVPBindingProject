@@ -28,11 +28,7 @@
 
         <activity android:name=".activities.PlaceActivity" />
         <activity android:name=".activities.RotationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <!-- <activity android:name=".activities.RotationActivity"></activity> -->
@@ -40,6 +36,14 @@
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login">
 
+        </activity>
+
+        <activity android:name=".activities.MapsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
