@@ -2,13 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ivakhnenko.javamvp">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
 
+    <uses-feature android:name="android.hardware.location" />
+
+    <uses-feature android:name="android.hardware.sensor.compass" />
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -40,6 +43,10 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login">
+
+        </activity>
+
+        <activity android:name=".activities.MapsActivity">
 
         </activity>
     </application>
