@@ -1,11 +1,7 @@
 package com.ivakhnenko.javamvp.activities;
 
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 
 import com.ivakhnenko.javamvp.R;
 import com.ivakhnenko.javamvp.databinding.ActivityRotationBinding;
