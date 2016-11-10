@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.hardware.display.DisplayManager;
+import android.hardware.display.VirtualDisplay;
 import android.media.Image;
 import android.media.ImageReader;
 import android.media.projection.MediaProjection;
@@ -28,6 +29,12 @@ public class CaptureActivity extends AppCompatActivity {
 
     MediaProjectionManager projectionManager;
 
+    private MediaProjection mediaProjection;
+
+    private ImageReader imageReader;
+
+    private Intent mediaProjectionData;
+
     private Handler handler;
 
     @Override
@@ -45,40 +52,68 @@ public class CaptureActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK){
-            MediaProjection mediaProjection = projectionManager.getMediaProjection(resultCode, data);
-            DisplayMetrics dm = getResources().getDisplayMetrics();
-            ImageReader imageReader = ImageReader.newInstance(dm.widthPixels, dm.heightPixels, PixelFormat.RGBA_8888, 2);
-            Surface surface = imageReader.getSurface();
-            mediaProjection.createVirtualDisplay("Ruslan Display", dm.widthPixels, dm.heightPixels, dm.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, surface, null, null);
-            imageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
-                @Override
-                public void onImageAvailable(ImageReader reader) {
-                    try {
-                        Image image = reader.acquireLatestImage();
-                        if (image != null) {
-                            Image.Plane[] planes = image.getPlanes();
-                            int length = planes.length;
-                            if (length > 0) {
-                                Image.Plane plane = planes[0];
-                                try {
-                                    FileOutputStream fos = new FileOutputStream(new File(getExternalFilesDir(Environment.DIRECTORY_DCIM), String.format("%d.png", System.currentTimeMillis())));
-                                    Bitmap bitmap = Bitmap.createBitmap(plane.getRowStride()/plane.getPixelStride(), image.getHeight(), Bitmap.Config.ARGB_8888);
-                                    bitmap.copyPixelsFromBuffer(plane.getBuffer());
-                                    bitmap.compress(Bitmap.CompressFormat.PNG, 80, fos);
-                                    image.close();
+            mediaProjectionData = data;
+            startCast();
+        }
+    }
 
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startCast();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopCast();
+    }
+
+    private void startCast(){
+        if (mediaProjectionData == null || mediaProjection != null){
+            return;
+        }
+        mediaProjection = projectionManager.getMediaProjection(Activity.RESULT_OK, mediaProjectionData);
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        imageReader = ImageReader.newInstance(dm.widthPixels, dm.heightPixels, PixelFormat.RGBA_8888, 2);
+        Surface surface = imageReader.getSurface();
+        VirtualDisplay virtualDisplay = mediaProjection.createVirtualDisplay("Ruslan Display", dm.widthPixels, dm.heightPixels, dm.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, surface, null, null);
+        imageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
+            @Override
+            public void onImageAvailable(ImageReader reader) {
+                try {
+                    Image image = reader.acquireLatestImage();
+                    if (image != null) {
+                        Image.Plane[] planes = image.getPlanes();
+                        int length = planes.length;
+                        if (length > 0) {
+                            Image.Plane plane = planes[0];
+                            try {
+                                FileOutputStream fos = new FileOutputStream(new File(getExternalFilesDir(Environment.DIRECTORY_DCIM), String.format("%d.png", System.currentTimeMillis())));
+                                Bitmap bitmap = Bitmap.createBitmap(plane.getRowStride()/plane.getPixelStride(), image.getHeight(), Bitmap.Config.ARGB_8888);
+                                bitmap.copyPixelsFromBuffer(plane.getBuffer());
+                                bitmap.compress(Bitmap.CompressFormat.PNG, 80, fos);
+                                image.close();
+
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
                         }
-                    } catch (IllegalStateException ex){
-                        ex.printStackTrace();
                     }
+                } catch (IllegalStateException ex){
+                    ex.printStackTrace();
                 }
-            }, handler);
+            }
+        }, handler);
+    }
+
+    private void stopCast(){
+        if (mediaProjection != null) {
+            imageReader.close();
+            mediaProjection.stop();
+            mediaProjection = null;
         }
     }
 }

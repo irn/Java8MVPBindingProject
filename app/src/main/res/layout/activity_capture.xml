@@ -10,4 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ivakhnenko.javamvp.activities.CaptureActivity">
 
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progress="50"
+        />
+
 </RelativeLayout>
