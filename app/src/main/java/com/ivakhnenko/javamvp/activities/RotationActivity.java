@@ -11,18 +11,11 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.view.Surface;
-import android.view.SurfaceView;
 import android.view.TextureView;
-import android.view.View;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.ivakhnenko.javamvp.R;
 import com.ivakhnenko.javamvp.databinding.ActivityRotationBinding;
 import com.ivakhnenko.javamvp.models.Position;
@@ -41,11 +34,6 @@ public class RotationActivity extends BaseLocationActivity implements RotationVi
     RotationPresenter rotationPresenter;
 
     ActivityRotationBinding rotationBinding;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

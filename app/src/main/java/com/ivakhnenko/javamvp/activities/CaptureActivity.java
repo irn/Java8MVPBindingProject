@@ -1,5 +1,6 @@
 package com.ivakhnenko.javamvp.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -43,7 +44,7 @@ public class CaptureActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1001){
+        if (requestCode == 1001 && resultCode == Activity.RESULT_OK){
             MediaProjection mediaProjection = projectionManager.getMediaProjection(resultCode, data);
             DisplayMetrics dm = getResources().getDisplayMetrics();
             ImageReader imageReader = ImageReader.newInstance(dm.widthPixels, dm.heightPixels, PixelFormat.RGBA_8888, 2);
