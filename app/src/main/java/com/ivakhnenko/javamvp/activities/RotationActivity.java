@@ -94,7 +94,8 @@ public class RotationActivity extends BaseLocationActivity implements RotationVi
                     @Override
                     public void onOpened(CameraDevice camera) {
 
-                        surface.setDefaultBufferSize(width, height);
+
+//                        surface.setDefaultBufferSize(width, height);
                         Surface surface1 = new Surface(surface);
                         try {
                             final CaptureRequest.Builder captureRequest = camera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
