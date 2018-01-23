@@ -119,8 +119,9 @@ public class RotationModelImpl extends BaseGpsModel implements RotationModel, Lo
         if (isOrientationInitialized(mOrientation) && mCallback != null){
             float bearingTo = location.bearingTo(dstLocation);
             int distanceTo = Math.round(location.distanceTo(dstLocation));
-            Log.i(getClass().getSimpleName(), String.format("bearing = %f, distance = %d", bearingTo, distanceTo));
-            Log.i(getClass().getSimpleName(), String.format("az in d = %f, azimuth = %f", Math.toDegrees(mOrientation[0]), mOrientation[0]));
+//            Log.i(getClass().getSimpleName(), String.format("bearing = %f, distance = %d", bearingTo, distanceTo));
+//            Log.i(getClass().getSimpleName(), String.format("az in d = %f, azimuth = %f", Math.toDegrees(mOrientation[0]), mOrientation[0]));
+//            Log.i(getClass().getSimpleName(), String.format("azimuth = %f, pitch = %f, roll = %f", Math.toDegrees(mOrientation[0]), Math.toDegrees(mOrientation[1]), Math.toDegrees(mOrientation[2])));
             Position position = new Position();
             position.setDistance(distanceTo);
             position.setLocationBearing(bearingTo);
@@ -159,6 +160,7 @@ public class RotationModelImpl extends BaseGpsModel implements RotationModel, Lo
             });
 
         }
+        Log.i(getClass().getSimpleName(), String.format("azimuth = %f, pitch = %f, roll = %f", Math.toDegrees(mOrientation[0]), Math.toDegrees(mOrientation[1]), Math.toDegrees(mOrientation[2])));
 //        Log.i(getClass().getSimpleName(), String.format("azimuth = %f, pitch = %f, roll = %f", values[0], values[1], values[2]));
     }
 
